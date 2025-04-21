@@ -41,10 +41,10 @@ def login_user(username, password):
                    (username, password))
     result = cursor.fetchone()
     if result:
-        return f"Login successful {result[0]}"  # Returns role (student/instructor)
+        return f"Login successful {result[0]}"  
     return "Error: Invalid credentials"
 
-# Funcn upload course resources (fixed SQL injection my removing fstri8ngs and using these param queries)
+# fxed SQL injection my removing fstri8ngs and using these param queries
 def upload_course_resources(course_id, resource_url, poster_username):
     try:
         cursor.execute("INSERT INTO courses (course_id, resource_url, poster_username) VALUES (?, ?, ?)", 
@@ -54,7 +54,7 @@ def upload_course_resources(course_id, resource_url, poster_username):
     except Exception as e:
         return f"Error: {str(e)}"
 
-# Func get course resources (fixed SQL injection my removing fstri8ngs and using these param queries)
+# Func get course resources 
 def get_course_resource(course_id):
     try:
         cursor.execute("SELECT resource_url FROM courses WHERE course_id=?", (course_id,))
@@ -77,7 +77,6 @@ def get_all_courses():
     except Exception as e:
         return f"Error: {str(e)}"
 
-# Handle Client Requests
 def handle_client(client_socket):
     request = client_socket.recv(1024).decode()
     parts = request.split()
