@@ -14,8 +14,7 @@ class MarioAnimation:
         self.current_label = None
  
         self.mario_image = tk.PhotoImage(file=image_path)
-        
-        # Scale image down
+
         width, height = 30, 30 
         self.mario_image = self.mario_image.subsample(self.mario_image.width() // width, 
                                                       self.mario_image.height() // height)
@@ -23,8 +22,7 @@ class MarioAnimation:
     def attach_to_label(self, label):
         if self.current_label == label:
             return
-            
-        # Remove from previous location if any
+        
         if self.canvas:
             self.canvas.destroy()
             
@@ -33,8 +31,7 @@ class MarioAnimation:
         # Get position of the label widget - place Mario after the label
         x = label.winfo_rootx() - self.parent.winfo_rootx() + label.winfo_width() + 5
         y = label.winfo_rooty() - self.parent.winfo_rooty() - 5
-        
-        # Create canvas with Mario image
+       
         self.canvas = tk.Canvas(self.parent, 
                                width=self.mario_image.width(), 
                                height=self.mario_image.height(),
@@ -60,7 +57,6 @@ class MarioAnimation:
         self.current_label = None
     
     def start_jumping(self):
-        # Initial position
         self.y_pos = 0
         self.going_up = True
  
@@ -89,7 +85,6 @@ class MarioAnimation:
         self.jump_timer = self.parent.after(150, self.do_jump) 
 
 
-# Function to show an image splash screen
 def show_splash_image(image_path, duration=2000, callback=None):
    
     splash = tk.Toplevel()
@@ -157,11 +152,9 @@ password_label.pack(pady=5)
 login_password = tk.Entry(login_frame, show="*", width=30)
 login_password.pack(pady=5)
 
-# Function to attach Mario to the username label when clicked
 def focus_username(event):
     mario.attach_to_label(username_label)
 
-# Function to attach Mario to the password label when clicked
 def focus_password(event):
     mario.attach_to_label(password_label)
 
@@ -184,7 +177,6 @@ def handle_login():
         current_user["username"] = username
         current_user["role"] = response.split()[-1]
         
-        # Show welcome image before switching to appropriate frame
         if current_user["role"] == "student":
             show_splash_image("welcome.png", 2000, lambda: show_frame(student_frame))
         else:
